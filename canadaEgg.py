@@ -2,11 +2,25 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 class PriceFinder:
-  def remove_dolla(string):
+  def removeLine(self,string):
+    parts= string.split("|")
+    return parts[0]
+
+  def remove_dolla(self,string):
     if "$" in string: 
       modifiedstring=string.replace("$","")
     
       return modifiedstring
+  def findPriceOne(self,link):
+    driver = webdriver.Chrome()
+    driver.get(link)
+    meta_element = driver.find_element(By.CSS_SELECTOR, 'meta[name="price"]')# this thing gets whats inside the html
+    canada_value = meta_element.get_attribute("content")# this thing gets the content inside the element
+    title_element = driver.title
+    print( self.removeLine(title_element),": ", canada_value)
+    title_element = self.removeLine(title_element)
+
+    return title_element
 
   #new change testasdasd
   def findPrice(self):
@@ -24,7 +38,7 @@ class PriceFinder:
     newegg_value = li_element.text
 
     canada_result = float(self.remove_dolla(canada_value))
-    newegg_result = float(remove_dolla(newegg_value))
+    newegg_result = float(self.remove_dolla(newegg_value))
 
     print("Price for canada computers:", canada_value, " new egg price ",newegg_value )
     if canada_result>newegg_result:
