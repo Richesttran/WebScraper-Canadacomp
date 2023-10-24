@@ -12,15 +12,18 @@ class PriceFinder:
     
       return modifiedstring
   def findPriceOne(self,link):
+    productlist=[]
     driver = webdriver.Chrome()
-    driver.get(link)
-    meta_element = driver.find_element(By.CSS_SELECTOR, 'meta[name="price"]')# this thing gets whats inside the html
-    canada_value = meta_element.get_attribute("content")# this thing gets the content inside the element
-    title_element = driver.title
-    print( self.removeLine(title_element),": ", canada_value)
-    title_element = self.removeLine(title_element)
-
-    return title_element
+    with open(link,'r') as file:
+       for line in file:
+        driver.get(line)
+        meta_element = driver.find_element(By.CSS_SELECTOR, 'meta[name="price"]')# this thing gets whats inside the html
+        canada_value = meta_element.get_attribute("content")# this thing gets the content inside the element
+        title_element = driver.title
+        title_element=self.removeLine(title_element)
+        productlist.append((title_element,canada_value))
+    driver.quit()
+    return productlist
 
   #new change testasdasd
   def findPrice(self):
