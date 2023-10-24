@@ -1,6 +1,6 @@
 
-from selenium import webdriver
-from selenium.webdriver.common.by import By
 from canadaEgg import PriceFinder
-hi = PriceFinder()
-print(hi.findPriceOne("https://www.canadacomputers.com/product_info.php?cPath=4_64&item_id=226995"))
+item_detail = PriceFinder()
+with open('Wishlist.txt','r') as file:
+  for line in file:
+   print(item_detail.findPriceOne(line.strip()))
