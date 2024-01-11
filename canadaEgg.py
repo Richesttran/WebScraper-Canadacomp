@@ -1,4 +1,3 @@
-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 class PriceFinder:
@@ -14,18 +13,19 @@ class PriceFinder:
   def findPriceOne(self,link):
     productlist=[]
     driver = webdriver.Chrome()
+    # iterate through each line and get the price and values
     with open(link,'r') as file:
        for line in file:
         driver.get(line)
         meta_element = driver.find_element(By.CSS_SELECTOR, 'meta[name="price"]')# this thing gets whats inside the html
         canada_value = meta_element.get_attribute("content")# this thing gets the content inside the element
         title_element = driver.title
-        title_element=self.removeLine(title_element)
+        title_element=self.removeLine(title_element)  # call function to split the line into the price,name and date
         productlist.append((title_element,canada_value))
     driver.quit()
     return productlist
 
-  #new change testasdasd
+  #new change test
   def findPrice(self):
     driver = webdriver.Chrome()
 

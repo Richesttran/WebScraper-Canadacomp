@@ -13,8 +13,7 @@ with open('ProductPrice.txt','r+') as file:
     for line in file:                                        # iterate each product in the text file
 
       if line.find(product[0]) != -1:                      # check if it has an existing line
-
-        if line.find(product[1]) != -1:
+        if line.find(product[1]) != -1:                    # check fi price is the same
           print("no price change for the "+ product[0])
         else:
           file.writelines(product[0] + product[1]+"\n")            # overwrite the existing line with new price
